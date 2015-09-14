@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset = "utf-8" />
+  <meta name="viewport" content="width=500, initial-scale=1">    
+  <title> Topic 1-1..7 & 11 </title>
+  <script type="text/javascript" src="jquery.js"> </script>
+  <link rel="stylesheet" href="mystyle.css" media="all" />
+  <script>
+      function dispload() {
+        var mySec = document.getElementById("sec").hidden;
+        var myTexb = document.getElementById("TXTBX");
+        if (mySec === true)
+          {
+          sec.hidden = false;
+          myTexb.focus();
+          }
+        else
+          sec.hidden = true;
+      }
+      window.onload = dispload;
+  </script>
+<script>
+$(document).ready(function(){
+    $("#BTTN").click(function(){
+       $.ajax({ url: 'http://bootcamp.aws.af.cm/welcome/', 
+                success: function(response)
+                  { 
+                    console.log(response);
+                    $("#sec").html(response);
+                  },
+                error: function()
+                  {
+                    $("sec").css("background-color","red");
+                  }
+      });
+    });
+  });
+</script>
+<script type="text/javascript"> 
+  function spotiresp(){
+      $("#spotiBttn").click(function(){
+        $.ajax({
+               url: "https://api.spotify.com/v1/search",
+               data: { q : "Rolling Stones",
+                       type : "album"
+                      },
+                success:  function (response) {
+                        console.log(response);
+                        var dataShow ="";
+                        var albums = response.albums;
+                        var items = albums.items;
+                        var i = i+1;
+                        $.each(items, function(i, albums) {
+                         dataShow = dataShow +"<article><br>"+ items.name+ "<br>" + items.type +"<br>"+ items.images +"<br>"+ items.externa_urls+"</article>";
+                         });
+                        $("#myAlbums").html(dataShow);    
+                }
+        });
+  });
+}
+                        
+</script>
+</head>
+  
+<body>
+  <section hidden id="sec">
+     <p>Hello world!</p>
+  </section>  
+  <button type="button" id="BTTN" onclick="dispload()"> Button </button> <br>
+  <input type="text" class="alias" placeholder="xyz123" id="TXTBX"/>
+  <section id="myAlbums">
+    <button type="button" id="spotiBttn" onclick="spotiresp()"> SptfyRspn </button>  
+  </section>
+
+</body>
+</html>
